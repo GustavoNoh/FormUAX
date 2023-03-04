@@ -1,5 +1,6 @@
 <script>
   import axios from 'axios'
+  import btnEnviar from '../components/btnSubmit.vue'
   
   export default {
   
@@ -27,6 +28,9 @@
     },
   
     mounted() {
+    },
+    components:{
+      btnEnviar
     },
   
     methods: {
@@ -71,6 +75,7 @@
       <h1 class="text-3xl font-bold py-3">PERSONAJE UAX</h1>
       <form>
         <div class="mx-3 mb-6 justify-center items-center rounded-lg">
+          <!-- Div de datos personales -->
           <div class="flex">
             <div class="w-full px-3">
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="nombre">
@@ -116,9 +121,7 @@
             </div>
           </div> -->
 
-          <div class="bg-primario1 w-1/3 my-10 px-auto mx-auto py-1 rounded-lg hover:bg-primario4">
-            <button @click="Registro" class="px-3 py-3 rounded-lg hover:bg-primario4 text-white">REGISTRARSE</button>
-          </div>
+          <btnEnviar @click="Registro"></btnEnviar>
         </div>
       </form>
     </div>
