@@ -40,7 +40,7 @@ export default {
     Registro() {
       axios
         .post("/api/guardarPersonasUxd.php", {
-
+          
           nombre: this.Nombre,
           edad: this.Edad,
           estadoCivil: this.EstadoCivil,
