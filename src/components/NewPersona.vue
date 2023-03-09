@@ -5,6 +5,7 @@ import axios from 'axios'
 import btnEnviar from '../components/btnSubmit.vue'
 import btnNuevo from '../components/btnNuevo.vue'
 import inText from '../components/inputText.vue'
+import inSlider from '../components/InputSlider.vue'
 
 export default {
 
@@ -36,7 +37,7 @@ export default {
   mounted() {
   },
   components: {
-    btnEnviar, inText, btnNuevo
+    btnEnviar, inText, btnNuevo, inSlider
   },
   emits: ['informacion','informacionTextArea','informacionSelect'],
   
@@ -76,6 +77,22 @@ export default {
     frustracionesVal(s, index){
       this.ArrayFrustraciones[index] = {value: s}
       console.log(this.ArrayFrustraciones)
+    },
+    pers1(s){
+      this.Personalidad1=s;
+      console.log(s);
+    },
+    pers2(s){
+      this.Personalidad2=s;
+      console.log(s);
+    },
+    pers3(s){
+      this.Personalidad3=s;
+      console.log(s);
+    },
+    pers4(s){
+      this.Personalidad4=s;
+      console.log(s);
     },
       
 
@@ -127,7 +144,6 @@ export default {
                 Nombre:
               </label>
               <inText @informacion="nombreVal"></inText>
-              <p>{{ Nombre }}</p>
             </div>
             <!--  Edad  -->
             <div class="w-full px-3">
@@ -200,68 +216,30 @@ export default {
                 BIOGRAFÍA:
               </label>
               <textarea placeholder="ej: He is the founder of design studio and graphic design blog. He specialized in logo design, branding, web design and offer design services" 
-              rows="6" cols="25" class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide" 
+              rows="4" cols="25" class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide" 
               type="text" name="Bio" id="Bio" v-model="Bio"></textarea>
             </div>
-            <!-- Div para las personalidades -->
-            <div class="w-full px-3">
-              
-              <div class="block w-full">
-                <!-- Div personalidad 1 -->
-                <div class="flex justify-end mx-3">
-                  <div>
-                    <label class="block uppercase text-gray-700 text-xs font-bold py-2 mx-5" for="Personalidad">
-                    Personalidad 1:
-                    </label>
-                  </div>
-                  <div>
-                    <input 
-                    class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                    min="0" max="100" type="range" name="personalidad" id="personalidad" v-model="Personalidad1">
-                  </div>
-                </div>
-                <!-- Div personalidad 2 -->
-                <div class="flex justify-end mx-3">
-                  <div>
-                    <label class="block uppercase text-gray-700 text-xs font-bold py-2 mx-5" for="Personalidad">
-                    Personalidad 2:
-                    </label>
-                  </div>
-                  <div>
-                    <input 
-                    class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                    min="0" max="100" type="range" name="personalidad" id="personalidad" v-model="Personalidad2">
-                  </div>
-                </div>
-                <!-- Div personalidad 3 -->
-                <div class="flex justify-end mx-3">
-                  <div>
-                    <label class="block uppercase text-gray-700 text-xs font-bold py-2 mx-5" for="Personalidad">
-                    Personalidad 3:
-                    </label>
-                  </div>
-                  <div>
-                    <input 
-                    class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                    min="0" max="100" type="range" name="personalidad" id="personalidad" v-model="Personalidad3">
-                  </div>
-                </div>
-                <!-- Div personalidad 4 -->
-                <div class="flex justify-end mx-3">
-                  <div>
-                    <label class="block uppercase text-gray-700 text-xs font-bold py-2 mx-5" for="Personalidad">
-                    Personalidad 4:
-                    </label>
-                  </div>
-                  <div>
-                    <input 
-                    class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                    min="0" max="100" type="range" name="personalidad" id="personalidad" v-model="Personalidad4">
-                  </div>
-                </div>
-                
-              </div>
-            </div>
+
+          </div>
+          <div class="block w-full">
+            <inSlider @person="pers1">
+            PERSONALIDAD 1
+            </inSlider> 
+          </div>
+          <div class="block w-full">
+            <inSlider @person="pers2">
+            PERSONALIDAD 2
+            </inSlider> 
+          </div>
+          <div class="block w-full">
+            <inSlider @person="pers3">
+            PERSONALIDAD 2
+            </inSlider> 
+          </div>
+          <div class="block w-full">
+            <inSlider @person="pers4">
+            PERSONALIDAD 2
+            </inSlider> 
           </div>
           <!-- Marca -->
           <div class="w-full px-3">
