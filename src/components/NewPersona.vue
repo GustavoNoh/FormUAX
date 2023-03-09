@@ -106,12 +106,10 @@ export default {
             </div>
             <!--  Fecha de nacimiento, pendiente calcular la edad con la misma fecha  -->
             <div class="w-full px-3">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="fechaNac">
-                  Fecha de Nacimiento:
+              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Edad">
+                  Edad:
                 </label>
-                <input
-                  class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  type="date" name="fechaNac" id='fechaNac'>
+                <inText placeholder="ej: 22" name="edad" id="edad" v-model="Edad"></inText>
             </div>
             <!-- Estado civil  -->
             <div class="w-full px-3">
@@ -277,7 +275,6 @@ export default {
               <div class="flex space-x-4">
                 <inText name="motivaciones" id="motivaciones" v-model="Motivaciones" placeholder="ej: Incentive"></inText>
                 <inRange name="motivaciones" id="motivaciones" v-model="Motivacion"></inRange>
-                
               </div>
                 
                 <div class="block">
