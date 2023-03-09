@@ -3,12 +3,13 @@
 
 import axios from 'axios'
 import btnEnviar from '../components/btnSubmit.vue'
+import btnNuevo from '../components/btnNuevo.vue'
 
 export default {
 
   data() {
     return {
-
+      countMarca: 0,
       Nombre: '',
       Edad: '',
       EstadoCivil: " ",
@@ -25,7 +26,9 @@ export default {
       Objetivos: [],
       Frustraciones: [],
       Motivaciones: [],
-      Marcas: ""
+      newMarca: "",
+      Marcas: ['']
+      
 
     }
   },
@@ -33,9 +36,18 @@ export default {
   mounted() {
   },
   components: {
-    btnEnviar
+    btnEnviar, btnNuevo
   },
   methods: {
+    newMarca(){
+      this.Marcas.push(this.newMarca)
+      // Marca = Marca + innerHTML.newMarca
+      // const newMarca = "<input>"
+      // newMarca.class = "block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
+      // // Marca.innerHTML.class = ""
+      // Marca.innerHTML.class = ""
+      console.log(this.Marcas)
+    },
 
     Registro() {
       axios
@@ -80,6 +92,7 @@ export default {
           <!-- Div de datos personales -->
           <div class="flex">
             <div class="w-full px-3">
+              
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Nombre">
                 Nombre:
               </label>
@@ -231,17 +244,19 @@ export default {
               </div>
             </div>
           </div>
-          <!-- Div de datos personales -->
+          <!-- Marca y objetivos -->
           <div class="flex">
             <!-- Marca -->
-            <div class="w-full px-3">
+            <div class="w-full px-3" id="inputMarca">
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Marca">
                 Marca:
               </label>
-              <input placeholder="ej: SONY"
+              <div v-for="(n, index) in Marcas">
+                <input placeholder="ej: SONY"
                 class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="marca" id="marca" v-model="Marcas">
-                <button class="px-3 py-1 rounded-lg hover:bg-primario1 bg-primario2 mb-5 text-white">Agregar nuevo</button>
+                type="text" name="marca" id="marca" v-model="n.value">
+              </div>
+                <btnNuevo v-on:click.prevent="this.Marcas.push(newMarca)"> </btnNuevo>
             </div>
             <!-- Objetivos -->
             <div class="w-full px-3">
@@ -251,9 +266,10 @@ export default {
               <input placeholder="ej: Strive for a design that's user friendly and beautiful"
                 class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
                 type="text" name="objetivos" id="objetivos" v-model="Objetivos">
-                <button class="px-3 py-1 rounded-lg hover:bg-primario1 bg-primario2 mb-5 text-white">Agregar nuevo</button>
+                <btnNuevo> </btnNuevo>
             </div>
           </div>
+          <!-- Frustraciones y Motivaciones -->
           <div class="flex">
             <!-- Frustraciones  -->
             <div class="w-full px-3">
@@ -263,7 +279,8 @@ export default {
               <input placeholder="ej: expectations are not clear"
                 class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
                 type="text" name="frustraciones" id="frustraciones" v-model="Frustraciones">
-                <button class="px-3 py-1 rounded-lg hover:bg-primario1 bg-primario2 mb-5 text-white">Agregar nuevo</button>
+                <btnNuevo> </btnNuevo>
+                <!-- <button class="px-3 py-1 rounded-lg hover:bg-primario1 bg-primario2 mb-5 text-white">Agregar nuevo</button> -->
             </div>
             <!-- Motivaciones -->
             <div class="w-full px-3">
@@ -280,7 +297,7 @@ export default {
               </div>
                 
                 <div class="block">
-                  <button class="px-3 py-1 rounded-lg hover:bg-primario1 bg-primario2 mb-5 text-white">Agregar nuevo</button>
+                  <btnNuevo> </btnNuevo>
                 </div>
                 
             </div>
