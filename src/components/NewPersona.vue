@@ -3,6 +3,8 @@
 
 import axios from 'axios'
 import btnEnviar from '../components/btnSubmit.vue'
+import btnNuevo from '../components/btnNuevo.vue'
+import inText from '../components/inputText.vue'
 
 export default {
 
@@ -21,9 +23,10 @@ export default {
       Personalidad2: "",
       Personalidad3: "",
       Personalidad4: "",
-      vMotivacion: "",
-      Objetivos: [],
-      Frustraciones: [],
+      newObje: "",
+      ArrayObjetivos: [{value:''}],
+      newFrus: "",
+      ArrayFrustraciones: [{value:''}],
       Motivaciones: [],
       Marcas: ""
 
@@ -33,9 +36,48 @@ export default {
   mounted() {
   },
   components: {
-    btnEnviar
+    btnEnviar, inText, btnNuevo
   },
+  emits: ['informacion','informacionTextArea','informacionSelect'],
+  
   methods: {
+    nombreVal(s){
+      this.Nombre = s
+      console.log(this.Nombre)
+    },
+    edadVal(s){
+      this.Edad = s
+      console.log(this.Edad)
+    },
+    trabajoVal(s){
+      this.Trabajo = s
+      console.log(this.Trabajo)
+    },
+    residenciaVal(s){
+      this.Residencia = s
+      console.log(this.Residencia)
+    },
+    citaVal(s){
+      this.Cita = s
+      console.log(this.Cita)
+    },
+    autorVal(s){
+      this.CitaAutor = s
+      console.log(this.CitaAutor)
+    },
+    marcasVal(s){
+      this.Marcas = s
+      console.log(this.Marcas)
+    },
+    objetivosVal(s, index){
+      this.ArrayObjetivos[index] = {value: s}
+      console.log(this.ArrayObjetivos)
+    },
+    frustracionesVal(s, index){
+      this.ArrayFrustraciones[index] = {value: s}
+      console.log(this.ArrayFrustraciones)
+    },
+      
 
     Registro() {
       axios
@@ -53,10 +95,11 @@ export default {
           personalidad02: this.Personalidad2,
           personalidad03: this.Personalidad3,
           personalidad04: this.Personalidad4,
-          objetivos: this.Objetivos,
-          frustraciones: this.Frustraciones,
+          marcas: this.Marcas,
+          objetivos: this.ArrayObjetivos,
+          frustraciones: this.ArrayFrustraciones,
           motivaciones: this.Motivaciones,
-          marcas: this.Marcas
+          
 
         })
         .then((response) => {
@@ -83,18 +126,15 @@ export default {
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Nombre">
                 Nombre:
               </label>
-              <input placeholder="ej: Gustavo Noh"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="nombre" id="nombre" v-model="Nombre">
+              <inText @informacion="nombreVal"></inText>
+              <p>{{ Nombre }}</p>
             </div>
-            <!--  Fecha de nacimiento, pendiente calcular la edad con la misma fecha  -->
+            <!--  Edad  -->
             <div class="w-full px-3">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="fechaNac">
-                  Fecha de Nacimiento:
-                </label>
-                <input
-                  class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  type="date" name="fechaNac" id='fechaNac'>
+              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Edad">
+                Edad:
+              </label>
+              <inText @informacion="edadVal"></inText>
             </div>
             <!-- Estado civil  -->
             <div class="w-full px-3">
@@ -120,18 +160,14 @@ export default {
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="trabajo">
                 Trabajo:
               </label>
-              <input placeholder="ej: Programador web"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="Trabajo" id="Trabajo" v-model="Trabajo">
+              <inText @informacion="trabajoVal"></inText>
             </div>
             <!-- Residencia  -->
             <div class="w-full px-3">
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="residencia">
                 Residencia:
               </label>
-              <input placeholder="ej: Calle 9a x 16 y 18, Telchac Pueblo"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="Residencia" id="Residencia" v-model="Residencia">
+              <inText @informacion="residenciaVal"></inText>
             </div>
           </div>
           <!-- Div para la cita y autor -->
@@ -139,12 +175,10 @@ export default {
             <!-- Cita -->
             <div class="w-full">
               <div class="w-full px-3">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="residencia">
+              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Cita">
                 Cita:
               </label>
-              <input placeholder="ej: Si la oportunidad no toca a la puerta, construye una"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="cita" id="cita" v-model="Cita">
+              <inText @informacion="citaVal"></inText>
             </div>
             </div>
             <!-- Autor -->
@@ -155,9 +189,7 @@ export default {
                 </label>
               </div>
               <div>
-                <input placeholder="ej: Milton Berle"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="autor" id="autor" v-model="CitaAutor">
+                <inText @informacion="autorVal"></inText>
               </div>
             </div>
           </div>
@@ -231,40 +263,39 @@ export default {
               </div>
             </div>
           </div>
+          <!-- Marca -->
+          <div class="w-full px-3">
+              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Marca">
+                Marcas:
+              </label>
+              <inText @informacion="marcasVal"></inText>
+          </div>
           <!-- Div de datos personales -->
           <div class="flex">
-            <!-- Marca -->
-            <div class="w-full px-3">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Marca">
-                Marca:
-              </label>
-              <input placeholder="ej: SONY"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="marca" id="marca" v-model="Marcas">
-                <button class="px-3 py-1 rounded-lg hover:bg-primario1 bg-primario2 mb-5 text-white">Agregar nuevo</button>
-            </div>
+            
             <!-- Objetivos -->
             <div class="w-full px-3">
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Objetivos">
                 Objetivos:
               </label>
-              <input placeholder="ej: Strive for a design that's user friendly and beautiful"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="objetivos" id="objetivos" v-model="Objetivos">
-                <button class="px-3 py-1 rounded-lg hover:bg-primario1 bg-primario2 mb-5 text-white">Agregar nuevo</button>
+              <div v-for="(obj, index) in ArrayObjetivos">
+                <inText @informacion="objetivosVal" :index="index"> </inText>
+              </div>
+              <btnNuevo v-on:click.prevent="this.ArrayObjetivos.push(newObje)"> </btnNuevo>
             </div>
-          </div>
-          <div class="flex">
             <!-- Frustraciones  -->
             <div class="w-full px-3">
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Frustraciones">
                 Frustraciones:
               </label>
-              <input placeholder="ej: expectations are not clear"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="frustraciones" id="frustraciones" v-model="Frustraciones">
-                <button class="px-3 py-1 rounded-lg hover:bg-primario1 bg-primario2 mb-5 text-white">Agregar nuevo</button>
+              <div v-for="(frus, index) in ArrayFrustraciones">
+                <inText @informacion="frustracionesVal" :index="index"> </inText>
+              </div>
+              <btnNuevo v-on:click.prevent="this.ArrayFrustraciones.push(newFrus)"> </btnNuevo>
             </div>
+          </div>
+          <div class="flex">
+            
             <!-- Motivaciones -->
             <div class="w-full px-3">
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Motivaciones">

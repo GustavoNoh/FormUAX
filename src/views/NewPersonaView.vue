@@ -1,5 +1,5 @@
 <script setup>
-import NewPersona from "../components/NewPersona.vue";
+import NewPersona from "../components/newPersona.vue";
 </script>
 
 <template>
