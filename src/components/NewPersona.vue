@@ -4,6 +4,9 @@
 import axios from 'axios'
 import btnEnviar from '../components/btnSubmit.vue'
 import btnNuevo from '../components/btnNuevo.vue'
+import inText from '../components/inputText.vue'
+import inTextArea from '../components/inputTextArea.vue'
+import inRange from '../components/inputRange.vue'
 
 export default {
 
@@ -23,11 +26,13 @@ export default {
       Personalidad3: "",
       Personalidad4: "",
       vMotivacion: "",
-      Objetivos: [],
-      Frustraciones: [],
+      newObje: "",
+      Objetivos: [""],
+      newFrus: "",
+      Frustraciones: [""],
       Motivaciones: [],
-      newMarca: "",
-      Marcas: ['']
+      
+      Marcas: "",
       
 
     }
@@ -36,7 +41,7 @@ export default {
   mounted() {
   },
   components: {
-    btnEnviar, btnNuevo
+    btnEnviar, btnNuevo,inText,inTextArea,inRange
   },
   methods: {
     newMarca(){
@@ -96,9 +101,8 @@ export default {
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Nombre">
                 Nombre:
               </label>
-              <input placeholder="ej: Gustavo Noh"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="nombre" id="nombre" v-model="Nombre">
+              <inText placeholder="ej: Gustavo Noh" name="nombre" id="nombre" v-model="Nombre"></inText>
+              
             </div>
             <!--  Fecha de nacimiento, pendiente calcular la edad con la misma fecha  -->
             <div class="w-full px-3">
@@ -133,18 +137,14 @@ export default {
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="trabajo">
                 Trabajo:
               </label>
-              <input placeholder="ej: Programador web"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="Trabajo" id="Trabajo" v-model="Trabajo">
+              <inText placeholder="ej: Programador web" name="Trabajo" id="Trabajo" v-model="Trabajo"></inText>
             </div>
             <!-- Residencia  -->
             <div class="w-full px-3">
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="residencia">
                 Residencia:
               </label>
-              <input placeholder="ej: Calle 9a x 16 y 18, Telchac Pueblo"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="Residencia" id="Residencia" v-model="Residencia">
+              <inText placeholder="ej: Calle 9a x 16 y 18, Telchac Pueblo" name="Residencia" id="Residencia" v-model="Residencia"></inText>
             </div>
           </div>
           <!-- Div para la cita y autor -->
@@ -155,9 +155,8 @@ export default {
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="residencia">
                 Cita:
               </label>
-              <input placeholder="ej: Si la oportunidad no toca a la puerta, construye una"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="cita" id="cita" v-model="Cita">
+              <inText placeholder="ej: Si la oportunidad no toca a la puerta, construye una" name="cita" id="cita" v-model="Cita"></inText>
+              
             </div>
             </div>
             <!-- Autor -->
@@ -168,9 +167,7 @@ export default {
                 </label>
               </div>
               <div>
-                <input placeholder="ej: Milton Berle"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="autor" id="autor" v-model="CitaAutor">
+                <inText placeholder="ej: Milton Berle" name="autor" id="autor" v-model="Autor"></inText>
               </div>
             </div>
           </div>
@@ -180,9 +177,8 @@ export default {
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Biografia">
                 BIOGRAFÍA:
               </label>
-              <textarea placeholder="ej: He is the founder of design studio and graphic design blog. He specialized in logo design, branding, web design and offer design services" 
-              rows="6" cols="25" class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide" 
-              type="text" name="Bio" id="Bio" v-model="Bio"></textarea>
+              <inTextArea name="Bio" id="Bio" v-model="Bio" placeholder="ej: He is the founder of design studio and graphic design blog. He specialized in logo design, branding, web design and offer design services" ></inTextArea>
+              
             </div>
             <!-- Div para las personalidades -->
             <div class="w-full px-3">
@@ -196,9 +192,7 @@ export default {
                     </label>
                   </div>
                   <div>
-                    <input 
-                    class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                    min="0" max="100" type="range" name="personalidad" id="personalidad" v-model="Personalidad1">
+                    <inRange name="personalidad" id="personalidad" v-model="Personalidad1"></inRange>
                   </div>
                 </div>
                 <!-- Div personalidad 2 -->
@@ -209,9 +203,7 @@ export default {
                     </label>
                   </div>
                   <div>
-                    <input 
-                    class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                    min="0" max="100" type="range" name="personalidad" id="personalidad" v-model="Personalidad2">
+                    <inRange name="personalidad" id="personalidad" v-model="Personalidad2"></inRange>
                   </div>
                 </div>
                 <!-- Div personalidad 3 -->
@@ -222,9 +214,7 @@ export default {
                     </label>
                   </div>
                   <div>
-                    <input 
-                    class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                    min="0" max="100" type="range" name="personalidad" id="personalidad" v-model="Personalidad3">
+                    <inRange name="personalidad" id="personalidad" v-model="Personalidad3"></inRange>
                   </div>
                 </div>
                 <!-- Div personalidad 4 -->
@@ -235,65 +225,59 @@ export default {
                     </label>
                   </div>
                   <div>
-                    <input 
-                    class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                    min="0" max="100" type="range" name="personalidad" id="personalidad" v-model="Personalidad4">
+                    <inRange name="personalidad" id="personalidad" v-model="Personalidad4"></inRange>
                   </div>
                 </div>
                 
               </div>
             </div>
           </div>
+          <div class="w-full px-3" id="inputMarca">
+              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Marca">
+                Marcas:
+              </label>
+              <!-- <div v-for="(n, index) in Marcas"> -->
+              <inText name="marca" id="marca" v-model="Marcas" placeholder="ej: Sony, Apple, etc"></inText>
+                <!-- <btnNuevo v-on:click.prevent="this.Marcas.push(newMarca)"> </btnNuevo> -->
+            </div>
           <!-- Marca y objetivos -->
           <div class="flex">
             <!-- Marca -->
-            <div class="w-full px-3" id="inputMarca">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Marca">
-                Marca:
-              </label>
-              <div v-for="(n, index) in Marcas">
-                <input placeholder="ej: SONY"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="marca" id="marca" v-model="n.value">
-              </div>
-                <btnNuevo v-on:click.prevent="this.Marcas.push(newMarca)"> </btnNuevo>
-            </div>
+            
             <!-- Objetivos -->
             <div class="w-full px-3">
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Objetivos">
                 Objetivos:
               </label>
-              <input placeholder="ej: Strive for a design that's user friendly and beautiful"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="objetivos" id="objetivos" v-model="Objetivos">
-                <btnNuevo> </btnNuevo>
+              <div v-for="(n, index) in Objetivos">
+                <inText name="objetivos" id="objetivos" v-model="Objetivos.n" placeholder="ej: Strive for a design that's user friendly and beautiful"></inText>
+              </div>
+                <btnNuevo v-on:click.prevent="this.Objetivos.push(newObje)"> </btnNuevo>
             </div>
-          </div>
-          <!-- Frustraciones y Motivaciones -->
-          <div class="flex">
             <!-- Frustraciones  -->
             <div class="w-full px-3">
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Frustraciones">
                 Frustraciones:
               </label>
-              <input placeholder="ej: expectations are not clear"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="frustraciones" id="frustraciones" v-model="Frustraciones">
-                <btnNuevo> </btnNuevo>
+              <div v-for="(n, index) in Frustraciones">
+                <inText name="frustraciones" id="frustraciones" v-model="n.value" placeholder="ej: expectations are not clear"></inText>
+              </div>
+                <btnNuevo v-on:click.prevent="this.Frustraciones.push(newFrus)"> </btnNuevo>
                 <!-- <button class="px-3 py-1 rounded-lg hover:bg-primario1 bg-primario2 mb-5 text-white">Agregar nuevo</button> -->
             </div>
+          </div>
+          <!-- Frustraciones y Motivaciones -->
+          <div class="flex">
+            
             <!-- Motivaciones -->
             <div class="w-full px-3">
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Motivaciones">
                 Motivaciones:
               </label>
               <div class="flex space-x-4">
-                <input placeholder="ej: Incentive"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="motivaciones" id="motivaciones" v-model="Motivaciones">
-                <input 
-                    class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                    min="0" max="100" type="range" name="personalidad" id="personalidad" v-model="Motivacion">
+                <inText name="motivaciones" id="motivaciones" v-model="Motivaciones" placeholder="ej: Incentive"></inText>
+                <inRange name="motivaciones" id="motivaciones" v-model="Motivacion"></inRange>
+                
               </div>
                 
                 <div class="block">
