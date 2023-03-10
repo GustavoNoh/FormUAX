@@ -3,7 +3,7 @@ import NewPersona from "../components/newPersona.vue";
 </script>
 
 <template>
-  <div>
+  <div class=" bg-gray-200">
     <NewPersona />
   </div>
 </template>

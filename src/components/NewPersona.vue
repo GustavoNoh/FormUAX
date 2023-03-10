@@ -4,6 +4,7 @@
 import axios from 'axios'
 import btnEnviar from '../components/btnSubmit.vue'
 import btnNuevo from '../components/btnNuevo.vue'
+import labelView from '../components/labelView.vue'
 import inText from '../components/inputText.vue'
 import inSlider from '../components/InputSlider.vue'
 import inTextArea from '../components/inputTextArea.vue'
@@ -27,10 +28,11 @@ export default {
       Personalidad3: "",
       Personalidad4: "",
       newObje: "",
-      ArrayObjetivos: [{value:''}],
+      ArrayObjetivos: [{ value: '' }],
       newFrus: "",
-      ArrayFrustraciones: [{value:''}],
-      Motivaciones: [],
+      ArrayFrustraciones: [{ value: '' }],
+      newMot: "",
+      ArrayMotivaciones: [{ value: '', porcentaje: '' }],
       Marcas: ""
 
     }
@@ -39,73 +41,81 @@ export default {
   mounted() {
   },
   components: {
-    btnEnviar, inText, btnNuevo, inSlider, inTextArea
+    btnEnviar, inText, btnNuevo, inSlider, inTextArea, labelView
   },
-  emits: ['informacion','informacionTextArea','informacionSelect'],
-  
+  emits: ['informacion', 'informacionTextArea', 'informacionSelect', 'person'],
+
   methods: {
-    nombreVal(s){
+    nombreVal(s) {
       this.Nombre = s
       console.log(this.Nombre)
     },
-    edadVal(s){
+    edadVal(s) {
       this.Edad = s
       console.log(this.Edad)
     },
-    trabajoVal(s){
+    trabajoVal(s) {
       this.Trabajo = s
       console.log(this.Trabajo)
     },
-    residenciaVal(s){
+    residenciaVal(s) {
       this.Residencia = s
       console.log(this.Residencia)
     },
-    citaVal(s){
+    citaVal(s) {
       this.Cita = s
       console.log(this.Cita)
     },
-    autorVal(s){
+    autorVal(s) {
       this.CitaAutor = s
       console.log(this.CitaAutor)
     },
-    bioVal(s){
+    bioVal(s) {
       this.Bio = s
       console.log(this.Bio)
     },
-    marcasVal(s){
+    marcasVal(s) {
       this.Marcas = s
       console.log(this.Marcas)
     },
-    objetivosVal(s, index){
-      this.ArrayObjetivos[index] = {value: s}
+    objetivosVal(s, index) {
+      this.ArrayObjetivos[index] = { value: s }
       console.log(this.ArrayObjetivos)
     },
-    frustracionesVal(s, index){
-      this.ArrayFrustraciones[index] = {value: s}
+    frustracionesVal(s, index) {
+      this.ArrayFrustraciones[index] = { value: s }
       console.log(this.ArrayFrustraciones)
     },
-    pers1(s){
-      this.Personalidad1=s;
-      console.log(s);
-    },
-    pers2(s){
-      this.Personalidad2=s;
-      console.log(s);
-    },
-    pers3(s){
-      this.Personalidad3=s;
-      console.log(s);
-    },
-    pers4(s){
-      this.Personalidad4=s;
-      console.log(s);
-    },
+    MotivacionesText(s, index) {
+      this.ArrayMotivaciones[index] = { value: s , porcentaje: this.ArrayMotivaciones[index].value }
       
+    },
+    MotivacionesVal(s, index) {
+      this.ArrayMotivaciones[index] = { value: this.ArrayMotivaciones[index].value , porcentaje: s }
+      
+    },
+    pers1(s) {
+      this.Personalidad1 = s;
+      console.log(s);
+    },
+    pers2(s) {
+      this.Personalidad2 = s;
+      console.log(s);
+    },
+    pers3(s) {
+      this.Personalidad3 = s;
+      console.log(s);
+    },
+    pers4(s) {
+      this.Personalidad4 = s;
+      console.log(s);
+    },
+
 
     Registro() {
       axios
         .post("/api/guardarPersonasUxd.php", {
-          
+
           nombre: this.Nombre,
           edad: this.Edad,
           estadoCivil: this.EstadoCivil,
@@ -121,8 +131,8 @@ export default {
           marcas: this.Marcas,
           objetivos: this.ArrayObjetivos,
           frustraciones: this.ArrayFrustraciones,
-          motivaciones: this.Motivaciones,
-          
+          motivaciones: this.ArrayMotivaciones,
+
 
         })
         .then((response) => {
@@ -140,29 +150,24 @@ export default {
   <div
     class="card flex mb-4 w-full md:w-3/4 px-0 shadow-2xl mx-auto my-5 items-center text-center justify-center rounded-lg">
     <div id="formulario" class="md:w-1-3 w-4/5 lg:w-3/4 items-center text-center">
-      <h1 class="text-3xl font-bold py-3">PERSONAJE UAX</h1>
+      <h1 class="text-3xl font-bold py-3">AGREGAR</h1>
       <form>
         <div class="mx-3 mb-6 justify-center items-center rounded-lg">
           <!-- Div de datos personales -->
           <div class="flex">
             <div class="w-full px-3">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Nombre">
-                Nombre:
-              </label>
+              <labelView>Nombre:</labelView>
               <inText @informacion="nombreVal"></inText>
             </div>
             <!--  Edad  -->
             <div class="w-full px-3">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Edad">
-                Edad:
-              </label>
+              <labelView>Edad:</labelView>
               <inText @informacion="edadVal"></inText>
             </div>
             <!-- Estado civil  -->
             <div class="w-full px-3">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="estadoCivil"> Estado
-                civil: </label>
-                <!-- select del valor de estado civil -->
+              <labelView>Estado Civil:</labelView>
+              <!-- select del valor de estado civil -->
               <select
                 class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 name="EstadoCivil" id="EstadoCivil" v-model="EstadoCivil">
@@ -179,16 +184,12 @@ export default {
           <div class="flex">
             <!-- Trabajo -->
             <div class="w-full px-3">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="trabajo">
-                Trabajo:
-              </label>
+              <labelView>Trabajo:</labelView>
               <inText @informacion="trabajoVal"></inText>
             </div>
             <!-- Residencia  -->
             <div class="w-full px-3">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="residencia">
-                Residencia:
-              </label>
+              <labelView>Residencia:</labelView>
               <inText @informacion="residenciaVal"></inText>
             </div>
           </div>
@@ -197,69 +198,62 @@ export default {
             <!-- Cita -->
             <div class="w-full">
               <div class="w-full px-3">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Cita">
-                Cita:
-              </label>
-              <inText @informacion="citaVal"></inText>
-            </div>
+                <labelView>Cita:</labelView>
+                <inText @informacion="citaVal"></inText>
+              </div>
             </div>
             <!-- Autor -->
             <div class="flex justify-end mx-3">
               <div>
-                <label class="block uppercase text-gray-700 text-xs font-bold py-2 mx-5" for="residencia">
-                Autor:
-                </label>
+                <labelView>Autor:</labelView>
               </div>
               <div>
                 <inText @informacion="autorVal"></inText>
               </div>
             </div>
           </div>
-          <div class="flex w-full">
-            <!-- Div para biografia -->
-            <div class="w-full px-3 w-full">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Biografia">
-                BIOGRAFÍA:
-              </label>
-              <inTextArea @informacion="bioVal"></inTextArea>
-            </div>
-
+          <!-- Div para biografia -->
+          <div class="block w-full">
+            <labelView>Biografía:</labelView>
+            <inTextArea @informacion="bioVal"></inTextArea>
           </div>
+          <!-- Personalidad -->
           <div class="block w-full">
             <inSlider @person="pers1">
-            PERSONALIDAD 1
-            </inSlider> 
+              PERSONALIDAD 1
+            </inSlider>
           </div>
+          <!-- Personalidad -->
           <div class="block w-full">
             <inSlider @person="pers2">
-            PERSONALIDAD 2
-            </inSlider> 
+              PERSONALIDAD 2
+            </inSlider>
           </div>
+          <!-- Personalidad -->
           <div class="block w-full">
             <inSlider @person="pers3">
-            PERSONALIDAD 2
-            </inSlider> 
+              PERSONALIDAD 2
+            </inSlider>
           </div>
+          <!-- Personalidad -->
           <div class="block w-full">
             <inSlider @person="pers4">
-            PERSONALIDAD 2
-            </inSlider> 
+              PERSONALIDAD 2
+            </inSlider>
           </div>
           <!-- Marca -->
           <div class="w-full px-3">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Marca">
-                Marcas:
-              </label>
-              <inText @informacion="marcasVal"></inText>
+            <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Marca">
+              Marcas:
+            </label>
+            <inText @informacion="marcasVal"></inText>
           </div>
-          <!-- Div de datos personales -->
-          <div class="flex">
-            
+          <!-- Div de Objetivos y Frustaraciones -->
+          <div class="flex">  
+
             <!-- Objetivos -->
             <div class="w-full px-3">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Objetivos">
-                Objetivos:
-              </label>
+              <labelView>Objetivos:</labelView>
               <div v-for="(obj, index) in ArrayObjetivos">
                 <inText @informacion="objetivosVal" :index="index"> </inText>
               </div>
@@ -267,37 +261,31 @@ export default {
             </div>
             <!-- Frustraciones  -->
             <div class="w-full px-3">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Frustraciones">
-                Frustraciones:
-              </label>
+              <labelView>Frustraciones:</labelView>
               <div v-for="(frus, index) in ArrayFrustraciones">
                 <inText @informacion="frustracionesVal" :index="index"> </inText>
               </div>
               <btnNuevo v-on:click.prevent="this.ArrayFrustraciones.push(newFrus)">Agregar Nuevo</btnNuevo>
             </div>
           </div>
-          <div class="flex">
-            
-            <!-- Motivaciones -->
-            <div class="w-full px-3">
-              <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Motivaciones">
-                Motivaciones:
-              </label>
-              <div class="flex space-x-4">
-                <input placeholder="ej: Incentive"
-                class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                type="text" name="motivaciones" id="motivaciones" v-model="Motivaciones">
-                <input 
-                    class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide"
-                    min="0" max="100" type="range" name="personalidad" id="personalidad" v-model="Motivacion">
+          <!-- Motivaciones -->
+          <div class="w-full px-3 block">
+            <labelView>Motivaciones:</labelView>
+            <div v-for="(mot, index) in ArrayMotivaciones"  class="flex">
+              <!-- Trabajo -->
+              <div class="w-full px-3 flex-root">
+
+                <inText @informacion="MotivacionesText" :index="index"> </inText>
               </div>
-                
-                <div class="block">
-                  <btnNuevo>Agregar Nuevo</btnNuevo>
-                </div>
-                
+              <!-- Residencia  -->
+              <div class="w-full px-3 flex-root">
+                <inSlider @person="MotivacionesVal" :index="index"> </inSlider>
+              </div>
             </div>
+            <btnNuevo v-on:click.prevent="this.ArrayMotivaciones.push(newMot)">Agregar Nuevo</btnNuevo>
+
           </div>
+
 
           <btnEnviar @click="Registro"></btnEnviar>
         </div>

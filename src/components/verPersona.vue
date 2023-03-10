@@ -13,12 +13,13 @@ export default {
   data() {
     return {
       persona: [],
-
+      id: ""
     };
   },
   components: {
     inText, btnNuevo, labelView
   },
+  emits: ['informacion', 'informacionTextArea', 'informacionSelect', 'person'],
   mounted() {
     axios.get(API_URL)
       .then((response) => {
@@ -26,15 +27,22 @@ export default {
         console.log(response.data);
       })
   },
+  methods:{
+    enviar(s) {
+      this.id = s
+      this.$emit('person',this.id)
+        }
+  }
 }
 </script>
 
 <template>
   <div>
-    <div
+    <!-- HEADER BUSCADOR -->
+  <div
       class="card flex-root mb-4 w-full md:w-3/4 px-0 shadow-2xl mx-auto my-5 items-center text-center justify-center rounded-lg">
       <div class="rounded-lg border-current mb-6 ml-6 mr-6 text-center rounded-lg px-5 my-2 text-white">
-        <h2>Personajes de UXD</h2>
+        <h1 class="text-3xl font-bold py-3 text-black">PERSONAJES UXD</h1>
       </div>
 
       <div class="rounded-lg border-current mb-6 ml-6 mr-6 text-center space-x-9">
@@ -44,32 +52,23 @@ export default {
         <btnNuevo @click="buscador(buscar)">Buscar</btnNuevo>
 
     </div>
-    <div class="rounded-lg border-current mb-6 ml-6 mr-6 text-center space-x-52">
-      <btnNuevo>Anterior</btnNuevo>
-      <btnNuevo>Siguiente</btnNuevo>
-    </div>
+
   </div>
 
   <!-- Imprime los personajes de la página -->
   <div
-    class="card flex mb-4 w-full md:w-3/4 px-0 shadow-2xl mx-auto my-5 items-center text-center justify-center rounded-lg">
+    class="card flex mb-4 py-10 w-full md:w-3/4 px-0 shadow-2xl mx-auto my-5 items-center text-center justify-center rounded-lg ">
     <div class="mx-3 mb-6 justify-center items-center rounded-lg inline-block">
-      <div  v-for="p in persona" class="max-w-sm rounded overflow-hidden shadow-lg">
+      <div v-for="(p, index) in persona" class="max-w-sm rounded overflow-hidden shadow-lg">
         <div class="px-6 py-4">
-          <div class="font-bold text-xl mb-2"><RouterLink to="/VerPersonaID">{{p.nombre}}</RouterLink></div>
+          <div class="font-bold text-xl mb-2"><RouterLink to="/VerPersonaID" @change="enviar" >{{p.nombre}}</RouterLink></div>
+          <span
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Edad: {{ p.edad }}</span>
           <p class="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis
-              eaque, exercitationem praesentium nihil.
+              {{p.cita}}
           </p>
-        </div>
-        <div class="px-6 pt-4 pb-2">
-          <span
-            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-          <span
-            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-          <span
-            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-        </div>
+          </div>
+          
       </div>
       <!-- <div v-for="p in persona" class="block border-double border-4 rounded-lg border-current mb-6 ml-6 mr-6 mt-6 border-black text-black">
             <div class="w-full px-3 flex space-x-5">

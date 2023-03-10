@@ -5,14 +5,14 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header>
-    <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-blue-400">
+    <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2 dark:bg-gray-400">
       <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
 
         <div class="flex items-center lg:order-3">
           <!-- <img src="./assets/logo.png" width="100" height="75"> -->
         </div>
         <div class="flex items-center lg:order-1">
-          <!-- <img src="./assets/logoname.png" width="200" height="100"> -->
+          <h1 class="text-3xl font-bold py-3">PERSONAJES UXD</h1>
         </div>
         <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-2" id="mobile-menu-2">
           <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">

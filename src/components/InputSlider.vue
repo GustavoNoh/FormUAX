@@ -6,9 +6,10 @@ export default {
             slider: 50
         }
     },
+    props:{index:null},
     methods: {
         enviar() {
-            this.$emit('person', this.slider)
+            this.$emit('person', this.slider, this.index)
         }
     }
 }
