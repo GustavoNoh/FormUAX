@@ -6,6 +6,8 @@ import btnEnviar from '../components/btnSubmit.vue'
 import btnNuevo from '../components/btnNuevo.vue'
 import inText from '../components/inputText.vue'
 import inSlider from '../components/InputSlider.vue'
+import inTextArea from '../components/inputTextArea.vue'
+
 
 export default {
 
@@ -37,7 +39,7 @@ export default {
   mounted() {
   },
   components: {
-    btnEnviar, inText, btnNuevo, inSlider
+    btnEnviar, inText, btnNuevo, inSlider, inTextArea
   },
   emits: ['informacion','informacionTextArea','informacionSelect'],
   
@@ -65,6 +67,10 @@ export default {
     autorVal(s){
       this.CitaAutor = s
       console.log(this.CitaAutor)
+    },
+    bioVal(s){
+      this.Bio = s
+      console.log(this.Bio)
     },
     marcasVal(s){
       this.Marcas = s
@@ -215,9 +221,7 @@ export default {
               <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="Biografia">
                 BIOGRAFÍA:
               </label>
-              <textarea placeholder="ej: He is the founder of design studio and graphic design blog. He specialized in logo design, branding, web design and offer design services" 
-              rows="4" cols="25" class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 px-4 mx-auto mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:tracking-wide" 
-              type="text" name="Bio" id="Bio" v-model="Bio"></textarea>
+              <inTextArea @informacion="bioVal"></inTextArea>
             </div>
 
           </div>
