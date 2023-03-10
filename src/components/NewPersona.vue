@@ -259,7 +259,7 @@ export default {
               <div v-for="(obj, index) in ArrayObjetivos">
                 <inText @informacion="objetivosVal" :index="index"> </inText>
               </div>
-              <btnNuevo v-on:click.prevent="this.ArrayObjetivos.push(newObje)"> </btnNuevo>
+              <btnNuevo v-on:click.prevent="this.ArrayObjetivos.push(newObje)">Agregar Nuevo</btnNuevo>
             </div>
             <!-- Frustraciones  -->
             <div class="w-full px-3">
@@ -269,7 +269,7 @@ export default {
               <div v-for="(frus, index) in ArrayFrustraciones">
                 <inText @informacion="frustracionesVal" :index="index"> </inText>
               </div>
-              <btnNuevo v-on:click.prevent="this.ArrayFrustraciones.push(newFrus)"> </btnNuevo>
+              <btnNuevo v-on:click.prevent="this.ArrayFrustraciones.push(newFrus)">Agregar Nuevo</btnNuevo>
             </div>
           </div>
           <div class="flex">
@@ -289,7 +289,7 @@ export default {
               </div>
                 
                 <div class="block">
-                  <button class="px-3 py-1 rounded-lg hover:bg-primario1 bg-primario2 mb-5 text-white">Agregar nuevo</button>
+                  <btnNuevo>Agregar Nuevo</btnNuevo>
                 </div>
                 
             </div>

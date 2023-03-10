@@ -13,6 +13,12 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
+      "/get": {
+        target: 'https://isclab.com.mx/personasuxd/getPersonasUxd.php/',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/get/, ""),
+      },
     },
   },
   plugins: [vue()],
